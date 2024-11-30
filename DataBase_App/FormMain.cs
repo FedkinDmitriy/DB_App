@@ -10,18 +10,11 @@ using System.Windows.Forms;
 
 namespace DataBase_App
 {
-    public partial class FormAuthorize : Form
+    public partial class FormMain : Form
     {
-        public FormAuthorize()
+        public FormMain()
         {
             InitializeComponent();
-        }
-
-        private void buttonEnter_Click(object sender, EventArgs e)
-        {
-            FormMain formMain = new FormMain();
-            formMain.Show();
-            this.Hide();
         }
     }
 }
