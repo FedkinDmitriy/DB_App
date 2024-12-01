@@ -121,6 +121,9 @@
             Controls.Add(pictureBoxPassword);
             Controls.Add(pictureBoxLogin);
             Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FormAuthorize";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Авторизация";
