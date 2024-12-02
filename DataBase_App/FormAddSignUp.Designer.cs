@@ -63,7 +63,7 @@
             Button_addSignUp.Name = "Button_addSignUp";
             Button_addSignUp.Size = new Size(304, 47);
             Button_addSignUp.TabIndex = 2;
-            Button_addSignUp.Text = "Добавить";
+            Button_addSignUp.Text = "Добавить/Изменить";
             Button_addSignUp.UseVisualStyleBackColor = true;
             Button_addSignUp.Click += Button_addSignUp_Click;
             // 

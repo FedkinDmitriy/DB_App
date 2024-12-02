@@ -40,6 +40,7 @@
             tabPage3 = new TabPage();
             tabPage4 = new TabPage();
             tabPage5 = new TabPage();
+            toolStripButton_editSignUp = new ToolStripButton();
             tabControlMain.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView_signUp).BeginInit();
@@ -88,7 +89,7 @@
             // 
             // toolStrip_signUp
             // 
-            toolStrip_signUp.Items.AddRange(new ToolStripItem[] { toolStripButton_loadSignUp, toolStripButton_addSignUp, toolStripButton_deleteSignUp });
+            toolStrip_signUp.Items.AddRange(new ToolStripItem[] { toolStripButton_loadSignUp, toolStripButton_addSignUp, toolStripButton_deleteSignUp, toolStripButton_editSignUp });
             toolStrip_signUp.Location = new Point(3, 3);
             toolStrip_signUp.Name = "toolStrip_signUp";
             toolStrip_signUp.Size = new Size(610, 25);
@@ -164,6 +165,17 @@
             tabPage5.Text = "Абонементы";
             tabPage5.UseVisualStyleBackColor = true;
             // 
+            // toolStripButton_editSignUp
+            // 
+            toolStripButton_editSignUp.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            toolStripButton_editSignUp.Image = (Image)resources.GetObject("toolStripButton_editSignUp.Image");
+            toolStripButton_editSignUp.ImageTransparentColor = Color.Magenta;
+            toolStripButton_editSignUp.Name = "toolStripButton_editSignUp";
+            toolStripButton_editSignUp.RightToLeft = RightToLeft.No;
+            toolStripButton_editSignUp.Size = new Size(65, 22);
+            toolStripButton_editSignUp.Text = "Изменить";
+            toolStripButton_editSignUp.Click += toolStripButton_editSignUp_Click;
+            // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -197,5 +209,6 @@
         private ToolStripButton toolStripButton_loadSignUp;
         private ToolStripButton toolStripButton_addSignUp;
         private ToolStripButton toolStripButton_deleteSignUp;
+        private ToolStripButton toolStripButton_editSignUp;
     }
 }
