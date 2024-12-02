@@ -36,11 +36,11 @@
             toolStripButton_loadSignUp = new ToolStripButton();
             toolStripButton_addSignUp = new ToolStripButton();
             toolStripButton_deleteSignUp = new ToolStripButton();
+            toolStripButton_editSignUp = new ToolStripButton();
             tabPage2 = new TabPage();
             tabPage3 = new TabPage();
             tabPage4 = new TabPage();
             tabPage5 = new TabPage();
-            toolStripButton_editSignUp = new ToolStripButton();
             tabControlMain.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView_signUp).BeginInit();
@@ -124,6 +124,18 @@
             toolStripButton_deleteSignUp.Name = "toolStripButton_deleteSignUp";
             toolStripButton_deleteSignUp.Size = new Size(55, 22);
             toolStripButton_deleteSignUp.Text = "Удалить";
+            toolStripButton_deleteSignUp.Click += toolStripButton_deleteSignUp_Click;
+            // 
+            // toolStripButton_editSignUp
+            // 
+            toolStripButton_editSignUp.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            toolStripButton_editSignUp.Image = (Image)resources.GetObject("toolStripButton_editSignUp.Image");
+            toolStripButton_editSignUp.ImageTransparentColor = Color.Magenta;
+            toolStripButton_editSignUp.Name = "toolStripButton_editSignUp";
+            toolStripButton_editSignUp.RightToLeft = RightToLeft.No;
+            toolStripButton_editSignUp.Size = new Size(65, 22);
+            toolStripButton_editSignUp.Text = "Изменить";
+            toolStripButton_editSignUp.Click += toolStripButton_editSignUp_Click;
             // 
             // tabPage2
             // 
@@ -164,17 +176,6 @@
             tabPage5.TabIndex = 4;
             tabPage5.Text = "Абонементы";
             tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // toolStripButton_editSignUp
-            // 
-            toolStripButton_editSignUp.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            toolStripButton_editSignUp.Image = (Image)resources.GetObject("toolStripButton_editSignUp.Image");
-            toolStripButton_editSignUp.ImageTransparentColor = Color.Magenta;
-            toolStripButton_editSignUp.Name = "toolStripButton_editSignUp";
-            toolStripButton_editSignUp.RightToLeft = RightToLeft.No;
-            toolStripButton_editSignUp.Size = new Size(65, 22);
-            toolStripButton_editSignUp.Text = "Изменить";
-            toolStripButton_editSignUp.Click += toolStripButton_editSignUp_Click;
             // 
             // FormMain
             // 

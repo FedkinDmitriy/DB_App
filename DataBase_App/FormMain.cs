@@ -90,7 +90,7 @@ namespace DataBase_App
 
                     // Открываем форму для редактирования записи
                     FormAddSignUp formEdit = new FormAddSignUp(_connection, signUpId, clientId, trainingId, date, status);
-                   // FormAddSignUp formEdit = new FormAddSignUp(_connection, signUpId: null, clientId: clientId, trainingId: trainingId, date: date, status: status);
+                    // FormAddSignUp formEdit = new FormAddSignUp(_connection, signUpId: null, clientId: clientId, trainingId: trainingId, date: date, status: status);
                     if (formEdit.ShowDialog() == DialogResult.OK)
                     {
                         toolStripButton_loadSignUp_Click(null, null); // Перезагружаем данные
@@ -128,5 +128,51 @@ namespace DataBase_App
                 return Convert.ToInt32(cmd.ExecuteScalar());
             }
         }
+
+        // кнопка Удалить Запись
+        private void toolStripButton_deleteSignUp_Click(object sender, EventArgs e)
+        {
+            if (dataGridView_signUp.SelectedRows.Count > 0)
+            {
+                try
+                {
+                    // Получаем данные из выделенной строки
+                    DataGridViewRow selectedRow = dataGridView_signUp.SelectedRows[0];
+                    int signUpId = Convert.ToInt32(selectedRow.Cells["sign_up_id"].Value);
+
+                    // Подтверждение удаления
+                    var confirmResult = MessageBox.Show("Вы уверены, что хотите удалить эту запись?","Подтверждение удаления",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+
+                    if (confirmResult == DialogResult.Yes)
+                    {
+                        string query = "DELETE FROM public.\"SignUp\" WHERE sign_up_id = @signUpId";
+
+                        using (var cmd = new NpgsqlCommand(query, _connection))
+                        {
+                            cmd.Parameters.AddWithValue("@signUpId", signUpId);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        // Перезагрузка данных
+                        toolStripButton_loadSignUp_Click(null, null);
+                        MessageBox.Show("Запись успешно удалена!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при удалении записи: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите запись для удаления.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+        }
+
+
+
+
+
     }
 }
