@@ -148,6 +148,7 @@
             Controls.Add(textBox_coachMiddleName);
             Controls.Add(textBox_coachLastName);
             Controls.Add(textBox_coachFirstName);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "FormAddCoach";
             Text = "FormAddCoach";
             ResumeLayout(false);

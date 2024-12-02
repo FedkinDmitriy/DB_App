@@ -366,6 +366,7 @@
             toolStripButton_loadTraining.Name = "toolStripButton_loadTraining";
             toolStripButton_loadTraining.Size = new Size(65, 22);
             toolStripButton_loadTraining.Text = "Загрузить";
+            toolStripButton_loadTraining.Click += toolStripButton_loadTraining_Click;
             // 
             // toolStripButton_addTraining
             // 
@@ -375,6 +376,7 @@
             toolStripButton_addTraining.Name = "toolStripButton_addTraining";
             toolStripButton_addTraining.Size = new Size(63, 22);
             toolStripButton_addTraining.Text = "Добавить";
+            toolStripButton_addTraining.Click += toolStripButton_addTraining_Click;
             // 
             // toolStripButton_editTraining
             // 
@@ -384,6 +386,7 @@
             toolStripButton_editTraining.Name = "toolStripButton_editTraining";
             toolStripButton_editTraining.Size = new Size(65, 22);
             toolStripButton_editTraining.Text = "Изменить";
+            toolStripButton_editTraining.Click += toolStripButton_editTraining_Click;
             // 
             // toolStripButton_deleteTraining
             // 
@@ -393,6 +396,7 @@
             toolStripButton_deleteTraining.Name = "toolStripButton_deleteTraining";
             toolStripButton_deleteTraining.Size = new Size(55, 22);
             toolStripButton_deleteTraining.Text = "Удалить";
+            toolStripButton_deleteTraining.Click += toolStripButton_deleteTraining_Click;
             // 
             // tabPage5
             // 

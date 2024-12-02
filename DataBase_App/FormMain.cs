@@ -405,5 +405,124 @@ namespace DataBase_App
                 MessageBox.Show("Пожалуйста, выберите тренера для редактирования.");
             }
         }
+
+
+
+
+        // интерфейс Тренировки
+
+        // загрузить тренировки
+
+        private void toolStripButton_loadTraining_Click(object sender, EventArgs e)
+        {
+            string query = "SELECT tr.training_id, tr.title, CONCAT(ch.first_name,' ',ch.last_name) AS coach, tr.max_users FROM public.\"Training\" tr JOIN public.\"Coach\" ch ON tr.coach = ch.coach_id";
+
+            try
+            {
+                // Создаем объект NpgsqlDataAdapter для выполнения запроса
+                NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(query, _connection);
+
+                // Создаем объект DataTable для хранения данных
+                DataTable dataTable = new DataTable();
+
+                // Заполняем DataTable результатами запроса
+                adapter.Fill(dataTable);
+
+                // Привязываем DataTable к DataGridView
+                dataGridView_Training.DataSource = dataTable;
+                dataGridView_Training.Columns["training_id"].Visible = false; // скрываем id 
+            }
+            catch (Exception ex)
+            {
+                // Обработка ошибок
+                MessageBox.Show($"Ошибка при загрузке данных: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        //удалить тренировки
+        private void toolStripButton_deleteTraining_Click(object sender, EventArgs e)
+        {
+            int? trainingId = GetSelectedTrainingId();
+
+            if (trainingId.HasValue)
+            {
+                // Подтверждение удаления
+                DialogResult result = MessageBox.Show("Вы уверены, что хотите удалить этого тренировку?", "Подтверждение удаления", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    try
+                    {
+                        // Выполняем запрос на удаление
+                        string query = "DELETE FROM public.\"Training\" WHERE training_id = @trainingId";
+
+                        using (var cmd = new NpgsqlCommand(query, _connection))
+                        {
+                            cmd.Parameters.AddWithValue("@trainingId", trainingId.Value);
+                            int affectedRows = cmd.ExecuteNonQuery();
+
+                            if (affectedRows > 0)
+                            {
+                                MessageBox.Show("Тренеровка успешно удалена!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Не удалось удалить тренеровку. Возможно, запись уже была удалена.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+
+                        // Перезагружаем данные
+                        toolStripButton_loadTraining_Click(null, null);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Ошибка при удалении тренеровки: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите тренеровку для удаления.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+        private int? GetSelectedTrainingId()
+        {
+            if (dataGridView_Training.SelectedRows.Count > 0)
+            {
+                return Convert.ToInt32(dataGridView_Training.SelectedRows[0].Cells["training_id"].Value);
+            }
+            return null;
+        }
+
+        //добавить тренировку
+        private void toolStripButton_addTraining_Click(object sender, EventArgs e)
+        {
+            FormAddTraining formAdd = new FormAddTraining(_connection);
+            if (formAdd.ShowDialog() == DialogResult.OK)
+            {
+                MessageBox.Show("Запись добавлена!");
+                toolStripButton_loadTraining_Click(null, null);
+            }
+        }
+        //изменить тренировку
+        private void toolStripButton_editTraining_Click(object sender, EventArgs e)
+        {
+            int? trainingId = GetSelectedTrainingId();
+            if (trainingId.HasValue)
+            {
+                FormAddTraining formEdit = new FormAddTraining(_connection, trainingId.Value);
+                if (formEdit.ShowDialog() == DialogResult.OK)
+                {
+                    MessageBox.Show("Запись обновлена!");
+                    toolStripButton_loadTraining_Click(null, null);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите тренеровку для редактирования.");
+            }
+        }
+
+
     }
 }
