@@ -141,7 +141,7 @@ namespace DataBase_App
                     int signUpId = Convert.ToInt32(selectedRow.Cells["sign_up_id"].Value);
 
                     // Подтверждение удаления
-                    var confirmResult = MessageBox.Show("Вы уверены, что хотите удалить эту запись?","Подтверждение удаления",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+                    var confirmResult = MessageBox.Show("Вы уверены, что хотите удалить эту запись?", "Подтверждение удаления", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                     if (confirmResult == DialogResult.Yes)
                     {
@@ -171,6 +171,125 @@ namespace DataBase_App
         }
 
 
+        //интерфейс Клиентов
+
+
+
+        // загрузить
+        private void toolStripButton_loadClient_Click(object sender, EventArgs e)
+        {
+            string query = "SELECT c.client_id, c.first_name, c.last_name, c.middle_name, c.telephon, c.email, c.date_of_birth, s.title, c.start_st FROM public.\"Client\" c JOIN public.\"Season_ticket\" s ON c.season_ticket = s.season_ticket_id";
+
+            try
+            {
+                // Создаем объект NpgsqlDataAdapter для выполнения запроса
+                NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(query, _connection);
+
+                // Создаем объект DataTable для хранения данных
+                DataTable dataTable = new DataTable();
+
+                // Заполняем DataTable результатами запроса
+                adapter.Fill(dataTable);
+
+                // Привязываем DataTable к DataGridView
+                dataGridView_Client.DataSource = dataTable;
+                dataGridView_Client.Columns["client_id"].Visible = false; // скрываем id 
+            }
+            catch (Exception ex)
+            {
+                // Обработка ошибок
+                MessageBox.Show($"Ошибка при загрузке данных: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // добавить клиента
+        private void toolStripButton_addClient_Click(object sender, EventArgs e)
+        {
+            FormaddClient formAdd = new FormaddClient(_connection);
+            if (formAdd.ShowDialog() == DialogResult.OK)
+            {
+                MessageBox.Show("Запись добавлена!");
+                toolStripButton_loadClient_Click(null, null);
+            }
+        }
+
+        // редактировать клиента
+        private void toolStripButton_editClient_Click(object sender, EventArgs e)
+        {
+            int? clientId = GetSelectedClientId();
+            if (clientId.HasValue)
+            {
+                FormaddClient formEdit = new FormaddClient(_connection, clientId.Value);
+                if (formEdit.ShowDialog() == DialogResult.OK)
+                {
+                    MessageBox.Show("Запись обновлена!");
+                    toolStripButton_loadClient_Click(null, null);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите клиента для редактирования.");
+            }
+        }
+
+        private int? GetSelectedClientId()
+        {
+            if (dataGridView_Client.SelectedRows.Count > 0)
+            {
+                return Convert.ToInt32(dataGridView_Client.SelectedRows[0].Cells["client_id"].Value);
+            }
+            return null;
+        }
+        // удалить клиента
+        private void toolStripButton_deleteClient_Click(object sender, EventArgs e)
+        {
+            int? clientId = GetSelectedClientId(); // Получаем ID выбранного клиента
+
+            if (clientId.HasValue)
+            {
+                // Подтверждение удаления
+                DialogResult result = MessageBox.Show("Вы уверены, что хотите удалить этого клиента?", "Подтверждение удаления", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    try
+                    {
+                        // Выполняем запрос на удаление
+                        string query = "DELETE FROM public.\"Client\" WHERE client_id = @clientId";
+
+                        using (var cmd = new NpgsqlCommand(query, _connection))
+                        {
+                            cmd.Parameters.AddWithValue("@clientId", clientId.Value);
+                            int affectedRows = cmd.ExecuteNonQuery();
+
+                            if (affectedRows > 0)
+                            {
+                                MessageBox.Show("Клиент успешно удален!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Не удалось удалить клиента. Возможно, запись уже была удалена.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+
+                        // Перезагружаем данные
+                        toolStripButton_loadClient_Click(null, null);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Ошибка при удалении клиента: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите клиента для удаления.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+
+
+        // интерфейс Тренеров
 
 
 
