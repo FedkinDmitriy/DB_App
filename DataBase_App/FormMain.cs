@@ -67,7 +67,7 @@ namespace DataBase_App
             FormAddSignUp formAdd = new FormAddSignUp(_connection);
             if (formAdd.ShowDialog() == DialogResult.OK)
             {
-                //MessageBox.Show("Запись добавлена!");
+                MessageBox.Show("Запись добавлена!");
             }
         }
     }

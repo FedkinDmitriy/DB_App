@@ -48,14 +48,15 @@ namespace DataBase_App
         {
             try
             {
-                string query = "SELECT training_id, title FROM public.\"Training\"";
+                //string query = "SELECT training_id, title FROM public.\"Training\"";
+                string query = "SELECT training_id, CONCAT(title, ' ', max_users) AS training_info FROM public.\"Training\"";
                 NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(query, _connection);
                 DataTable dataTable = new DataTable();
                 adapter.Fill(dataTable);
 
                 // Устанавливаем источник данных ComboBox
                 comboBox_training.DataSource = dataTable;
-                comboBox_training.DisplayMember = "title"; // Отображаемое название
+                comboBox_training.DisplayMember = "training_info"; // Отображаемое название
                 comboBox_training.ValueMember = "training_id";  // Скрытое значение
             }
             catch (Exception ex)
@@ -86,7 +87,7 @@ namespace DataBase_App
                     cmd.Parameters.AddWithValue("@status", status);
 
                     cmd.ExecuteNonQuery();
-                    MessageBox.Show("Запись успешно добавлена!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //MessageBox.Show("Запись успешно добавлена!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.DialogResult = DialogResult.OK;
                 }
             }
@@ -95,5 +96,34 @@ namespace DataBase_App
                 MessageBox.Show($"Ошибка при добавлении записи: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void button_checkCount_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int trainingId = Convert.ToInt32(comboBox_training.SelectedValue);
+
+                // Запрос для подсчета количества записей
+                string query = "SELECT count(training_id) AS current_use FROM public.\"SignUp\" WHERE training_id = @trainingId";
+
+                // Используем NpgsqlCommand для параметризованного запроса
+                using (var cmd = new NpgsqlCommand(query, _connection))
+                {
+                    // Добавляем параметр
+                    cmd.Parameters.AddWithValue("@trainingId", trainingId);
+
+                    // Выполняем запрос и считываем результат
+                    int count = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    // Выводим результат в текстовое поле
+                    textBox_countUse.Text = count.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при получении данных: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
     }
 }
