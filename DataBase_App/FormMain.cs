@@ -289,9 +289,121 @@ namespace DataBase_App
 
 
 
+
         // интерфейс Тренеров
 
 
+        // загрузить
+        private void toolStripButton_loadCoach_Click(object sender, EventArgs e)
+        {
+            string query = "SELECT coach_id, first_name, last_name, middle_name, telephon, specilization FROM public.\"Coach\"";
 
+            try
+            {
+                // Создаем объект NpgsqlDataAdapter для выполнения запроса
+                NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(query, _connection);
+
+                // Создаем объект DataTable для хранения данных
+                DataTable dataTable = new DataTable();
+
+                // Заполняем DataTable результатами запроса
+                adapter.Fill(dataTable);
+
+                // Привязываем DataTable к DataGridView
+                dataGridView_Coach.DataSource = dataTable;
+                dataGridView_Coach.Columns["coach_id"].Visible = false; // скрываем id 
+            }
+            catch (Exception ex)
+            {
+                // Обработка ошибок
+                MessageBox.Show($"Ошибка при загрузке данных: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private int? GetSelectedCoachId()
+        {
+            if (dataGridView_Coach.SelectedRows.Count > 0)
+            {
+                return Convert.ToInt32(dataGridView_Coach.SelectedRows[0].Cells["coach_id"].Value);
+            }
+            return null;
+        }
+        // удалить тренера
+        private void toolStripButton_deleteCoach_Click(object sender, EventArgs e)
+        {
+            int? coachId = GetSelectedCoachId();
+
+            if (coachId.HasValue)
+            {
+                // Подтверждение удаления
+                DialogResult result = MessageBox.Show("Вы уверены, что хотите удалить этого тренера?", "Подтверждение удаления", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    try
+                    {
+                        // Выполняем запрос на удаление
+                        string query = "DELETE FROM public.\"Coach\" WHERE coach_id = @coachId";
+
+                        using (var cmd = new NpgsqlCommand(query, _connection))
+                        {
+                            cmd.Parameters.AddWithValue("@coachId", coachId.Value);
+                            int affectedRows = cmd.ExecuteNonQuery();
+
+                            if (affectedRows > 0)
+                            {
+                                MessageBox.Show("Тренер успешно удален!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Не удалось удалить тренера. Возможно, запись уже была удалена.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+
+                        // Перезагружаем данные
+                        toolStripButton_loadCoach_Click(null, null);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Ошибка при удалении тренера: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите тренера для удаления.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        //добавить тренера 
+
+        private void toolStripButton_addCoach_Click(object sender, EventArgs e)
+        {
+            FormAddCoach formAdd = new FormAddCoach(_connection);
+            if (formAdd.ShowDialog() == DialogResult.OK)
+            {
+                MessageBox.Show("Запись добавлена!");
+                toolStripButton_loadCoach_Click(null, null);
+            }
+        }
+
+        //изменить тренера
+        private void toolStripButton_editCoach_Click(object sender, EventArgs e)
+        {
+            int? coachId = GetSelectedCoachId();
+            if (coachId.HasValue)
+            {
+                FormAddCoach formEdit = new FormAddCoach(_connection, coachId.Value);
+                if (formEdit.ShowDialog() == DialogResult.OK)
+                {
+                    MessageBox.Show("Запись обновлена!");
+                    toolStripButton_loadCoach_Click(null, null);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите тренера для редактирования.");
+            }
+        }
     }
 }
