@@ -68,7 +68,8 @@ namespace DataBase_App
             FormAddSignUp formAdd = new FormAddSignUp(_connection);
             if (formAdd.ShowDialog() == DialogResult.OK)
             {
-                MessageBox.Show("Запись добавлена!");
+               // MessageBox.Show("Запись добавлена!");
+                toolStripButton_loadSignUp_Click(null, null);
             }
         }
 
@@ -208,7 +209,7 @@ namespace DataBase_App
             FormaddClient formAdd = new FormaddClient(_connection);
             if (formAdd.ShowDialog() == DialogResult.OK)
             {
-                MessageBox.Show("Запись добавлена!");
+               // MessageBox.Show("Запись добавлена!");
                 toolStripButton_loadClient_Click(null, null);
             }
         }
@@ -222,7 +223,7 @@ namespace DataBase_App
                 FormaddClient formEdit = new FormaddClient(_connection, clientId.Value);
                 if (formEdit.ShowDialog() == DialogResult.OK)
                 {
-                    MessageBox.Show("Запись обновлена!");
+                   // MessageBox.Show("Запись обновлена!");
                     toolStripButton_loadClient_Click(null, null);
                 }
             }
@@ -382,7 +383,7 @@ namespace DataBase_App
             FormAddCoach formAdd = new FormAddCoach(_connection);
             if (formAdd.ShowDialog() == DialogResult.OK)
             {
-                MessageBox.Show("Запись добавлена!");
+                //MessageBox.Show("Запись добавлена!");
                 toolStripButton_loadCoach_Click(null, null);
             }
         }
@@ -396,7 +397,7 @@ namespace DataBase_App
                 FormAddCoach formEdit = new FormAddCoach(_connection, coachId.Value);
                 if (formEdit.ShowDialog() == DialogResult.OK)
                 {
-                    MessageBox.Show("Запись обновлена!");
+                   // MessageBox.Show("Запись обновлена!");
                     toolStripButton_loadCoach_Click(null, null);
                 }
             }
@@ -500,7 +501,7 @@ namespace DataBase_App
             FormAddTraining formAdd = new FormAddTraining(_connection);
             if (formAdd.ShowDialog() == DialogResult.OK)
             {
-                MessageBox.Show("Запись добавлена!");
+               // MessageBox.Show("Запись добавлена!");
                 toolStripButton_loadTraining_Click(null, null);
             }
         }
@@ -513,7 +514,7 @@ namespace DataBase_App
                 FormAddTraining formEdit = new FormAddTraining(_connection, trainingId.Value);
                 if (formEdit.ShowDialog() == DialogResult.OK)
                 {
-                    MessageBox.Show("Запись обновлена!");
+                   // MessageBox.Show("Запись обновлена!");
                     toolStripButton_loadTraining_Click(null, null);
                 }
             }
@@ -524,5 +525,124 @@ namespace DataBase_App
         }
 
 
+
+
+
+
+        // интерфейс абонементы 
+
+        // загрузить
+
+        private void toolStripButton_loadTicket_Click(object sender, EventArgs e)
+        {
+            string query = "SELECT season_ticket_id, title, duration, cost FROM public.\"Season_ticket\"";
+
+            try
+            {
+                // Создаем объект NpgsqlDataAdapter для выполнения запроса
+                NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(query, _connection);
+
+                // Создаем объект DataTable для хранения данных
+                DataTable dataTable = new DataTable();
+
+                // Заполняем DataTable результатами запроса
+                adapter.Fill(dataTable);
+
+                // Привязываем DataTable к DataGridView
+                dataGridView_Ticket.DataSource = dataTable;
+                dataGridView_Ticket.Columns["season_ticket_id"].Visible = false; // скрываем id 
+            }
+            catch (Exception ex)
+            {
+                // Обработка ошибок
+                MessageBox.Show($"Ошибка при загрузке данных: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // удалить
+        private void toolStripButton_deleteTicket_Click(object sender, EventArgs e)
+        {
+            int? ticketId = GetSelectedTicketId();
+
+            if (ticketId.HasValue)
+            {
+                // Подтверждение удаления
+                DialogResult result = MessageBox.Show("Вы уверены, что хотите удалить этот абонемент?", "Подтверждение удаления", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    try
+                    {
+                        // Выполняем запрос на удаление
+                        string query = "DELETE FROM public.\"Season_ticket\" WHERE season_ticket_id = @ticketId";
+
+                        using (var cmd = new NpgsqlCommand(query, _connection))
+                        {
+                            cmd.Parameters.AddWithValue("@ticketId", ticketId.Value);
+                            int affectedRows = cmd.ExecuteNonQuery();
+
+                            if (affectedRows > 0)
+                            {
+                                MessageBox.Show("Абонемент успешно удален!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Не удалось удалить абонемент. Возможно, запись уже была удалена.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+
+                        // Перезагружаем данные
+                        toolStripButton_loadTicket_Click(null, null);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Ошибка при удалении абонемента: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите абонемент для удаления.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        // добавить
+        private void toolStripButton_addTicket_Click(object sender, EventArgs e)
+        {
+            FormAddTicket formAdd = new FormAddTicket(_connection);
+            if (formAdd.ShowDialog() == DialogResult.OK)
+            {
+               // MessageBox.Show("Запись добавлена!");
+                toolStripButton_loadTicket_Click(null, null);
+            }
+        }
+
+        // изменить
+        private void toolStripButton_editTicket_Click(object sender, EventArgs e)
+        {
+            int? ticketId = GetSelectedTicketId();
+            if (ticketId.HasValue)
+            {
+                FormAddTicket formEdit = new FormAddTicket(_connection, ticketId.Value);
+                if (formEdit.ShowDialog() == DialogResult.OK)
+                {
+                   // MessageBox.Show("Запись обновлена!");
+                    toolStripButton_loadTicket_Click(null, null);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите абонемент для редактирования.");
+            }
+        }
+
+        private int? GetSelectedTicketId()
+        {
+            if (dataGridView_Ticket.SelectedRows.Count > 0)
+            {
+                return Convert.ToInt32(dataGridView_Ticket.SelectedRows[0].Cells["season_ticket_id"].Value);
+            }
+            return null;
+        }
     }
 }

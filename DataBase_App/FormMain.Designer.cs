@@ -441,6 +441,7 @@
             toolStripButton_loadTicket.Name = "toolStripButton_loadTicket";
             toolStripButton_loadTicket.Size = new Size(65, 22);
             toolStripButton_loadTicket.Text = "Загрузить";
+            toolStripButton_loadTicket.Click += toolStripButton_loadTicket_Click;
             // 
             // toolStripButton_addTicket
             // 
@@ -450,6 +451,7 @@
             toolStripButton_addTicket.Name = "toolStripButton_addTicket";
             toolStripButton_addTicket.Size = new Size(63, 22);
             toolStripButton_addTicket.Text = "Добавить";
+            toolStripButton_addTicket.Click += toolStripButton_addTicket_Click;
             // 
             // toolStripButton_editTicket
             // 
@@ -459,6 +461,7 @@
             toolStripButton_editTicket.Name = "toolStripButton_editTicket";
             toolStripButton_editTicket.Size = new Size(65, 22);
             toolStripButton_editTicket.Text = "Изменить";
+            toolStripButton_editTicket.Click += toolStripButton_editTicket_Click;
             // 
             // toolStripButton_deleteTicket
             // 
@@ -468,6 +471,7 @@
             toolStripButton_deleteTicket.Name = "toolStripButton_deleteTicket";
             toolStripButton_deleteTicket.Size = new Size(55, 22);
             toolStripButton_deleteTicket.Text = "Удалить";
+            toolStripButton_deleteTicket.Click += toolStripButton_deleteTicket_Click;
             // 
             // FormMain
             // 
