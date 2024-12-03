@@ -126,7 +126,7 @@
             button_add_edit_coach.Dock = DockStyle.Bottom;
             button_add_edit_coach.Location = new Point(0, 206);
             button_add_edit_coach.Name = "button_add_edit_coach";
-            button_add_edit_coach.Size = new Size(295, 42);
+            button_add_edit_coach.Size = new Size(285, 42);
             button_add_edit_coach.TabIndex = 10;
             button_add_edit_coach.Text = "Добавить/Изменить";
             button_add_edit_coach.UseVisualStyleBackColor = true;
@@ -136,7 +136,8 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(295, 248);
+            BackColor = SystemColors.GradientInactiveCaption;
+            ClientSize = new Size(285, 248);
             Controls.Add(button_add_edit_coach);
             Controls.Add(label5);
             Controls.Add(label4);
@@ -150,7 +151,7 @@
             Controls.Add(textBox_coachFirstName);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "FormAddCoach";
-            Text = "FormAddCoach";
+            Text = "Тренер";
             ResumeLayout(false);
             PerformLayout();
         }

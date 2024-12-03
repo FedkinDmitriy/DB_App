@@ -37,6 +37,8 @@
             toolStripButton_addSignUp = new ToolStripButton();
             toolStripButton_deleteSignUp = new ToolStripButton();
             toolStripButton_editSignUp = new ToolStripButton();
+            toolStripTextBox_searchSignUp = new ToolStripTextBox();
+            toolStripButton_search = new ToolStripButton();
             tabPage2 = new TabPage();
             dataGridView_Client = new DataGridView();
             toolStrip_client = new ToolStrip();
@@ -125,7 +127,7 @@
             // 
             // toolStrip_signUp
             // 
-            toolStrip_signUp.Items.AddRange(new ToolStripItem[] { toolStripButton_loadSignUp, toolStripButton_addSignUp, toolStripButton_deleteSignUp, toolStripButton_editSignUp });
+            toolStrip_signUp.Items.AddRange(new ToolStripItem[] { toolStripButton_loadSignUp, toolStripButton_addSignUp, toolStripButton_deleteSignUp, toolStripButton_editSignUp, toolStripTextBox_searchSignUp, toolStripButton_search });
             toolStrip_signUp.Location = new Point(3, 3);
             toolStrip_signUp.Name = "toolStrip_signUp";
             toolStrip_signUp.Size = new Size(610, 25);
@@ -172,6 +174,24 @@
             toolStripButton_editSignUp.Size = new Size(65, 22);
             toolStripButton_editSignUp.Text = "Изменить";
             toolStripButton_editSignUp.Click += toolStripButton_editSignUp_Click;
+            // 
+            // toolStripTextBox_searchSignUp
+            // 
+            toolStripTextBox_searchSignUp.BackColor = SystemColors.Info;
+            toolStripTextBox_searchSignUp.MaxLength = 64;
+            toolStripTextBox_searchSignUp.Name = "toolStripTextBox_searchSignUp";
+            toolStripTextBox_searchSignUp.Size = new Size(150, 25);
+            toolStripTextBox_searchSignUp.ToolTipText = "введите фамилию клиента";
+            // 
+            // toolStripButton_search
+            // 
+            toolStripButton_search.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            toolStripButton_search.Image = (Image)resources.GetObject("toolStripButton_search.Image");
+            toolStripButton_search.ImageTransparentColor = Color.Magenta;
+            toolStripButton_search.Name = "toolStripButton_search";
+            toolStripButton_search.Size = new Size(23, 22);
+            toolStripButton_search.Text = "toolStripButton1";
+            toolStripButton_search.Click += toolStripButton_search_Click;
             // 
             // tabPage2
             // 
@@ -482,7 +502,7 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "FormMain";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "FormMain";
+            Text = "Fitness Centr";
             FormClosed += FormMain_FormClosed;
             tabControlMain.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
@@ -551,5 +571,7 @@
         private ToolStripButton toolStripButton_addTicket;
         private ToolStripButton toolStripButton_editTicket;
         private ToolStripButton toolStripButton_deleteTicket;
+        private ToolStripTextBox toolStripTextBox_searchSignUp;
+        private ToolStripButton toolStripButton_search;
     }
 }

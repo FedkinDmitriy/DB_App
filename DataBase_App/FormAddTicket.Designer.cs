@@ -106,6 +106,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.GradientInactiveCaption;
             ClientSize = new Size(310, 204);
             Controls.Add(button_add_edit_Ticket);
             Controls.Add(label3);
@@ -116,7 +117,7 @@
             Controls.Add(textBox_TicketTitle);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "FormAddTicket";
-            Text = "FormAddTicket";
+            Text = "Абонемент";
             ((System.ComponentModel.ISupportInitialize)numericUpDown_ticketDuration).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown_ticketCost).EndInit();
             ResumeLayout(false);

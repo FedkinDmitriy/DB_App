@@ -58,7 +58,7 @@
             button_add_edit_training.Dock = DockStyle.Bottom;
             button_add_edit_training.Location = new Point(0, 171);
             button_add_edit_training.Name = "button_add_edit_training";
-            button_add_edit_training.Size = new Size(301, 47);
+            button_add_edit_training.Size = new Size(295, 47);
             button_add_edit_training.TabIndex = 3;
             button_add_edit_training.Text = "Добавить/Изменить";
             button_add_edit_training.UseVisualStyleBackColor = true;
@@ -104,7 +104,8 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(301, 218);
+            BackColor = SystemColors.GradientInactiveCaption;
+            ClientSize = new Size(295, 218);
             Controls.Add(numericUpDown_QuantityUsers);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -114,7 +115,7 @@
             Controls.Add(textBox_TrainingTitile);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "FormAddTraining";
-            Text = "FormAddTraining";
+            Text = "Тренировка";
             ((System.ComponentModel.ISupportInitialize)numericUpDown_QuantityUsers).EndInit();
             ResumeLayout(false);
             PerformLayout();

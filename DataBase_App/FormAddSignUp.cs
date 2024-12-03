@@ -65,7 +65,7 @@ namespace DataBase_App
             try
             {
                 //string query = "SELECT training_id, title FROM public.\"Training\"";
-                string query = "SELECT training_id, CONCAT(title, ' ', max_users) AS training_info FROM public.\"Training\"";
+                string query = "SELECT training_id, CONCAT(title, ' (max: ', max_users, ')') AS training_info FROM public.\"Training\"";
                 NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(query, _connection);
                 DataTable dataTable = new DataTable();
                 adapter.Fill(dataTable);

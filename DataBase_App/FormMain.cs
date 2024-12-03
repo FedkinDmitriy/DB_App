@@ -68,7 +68,7 @@ namespace DataBase_App
             FormAddSignUp formAdd = new FormAddSignUp(_connection);
             if (formAdd.ShowDialog() == DialogResult.OK)
             {
-               // MessageBox.Show("Запись добавлена!");
+                // MessageBox.Show("Запись добавлена!");
                 toolStripButton_loadSignUp_Click(null, null);
             }
         }
@@ -209,7 +209,7 @@ namespace DataBase_App
             FormaddClient formAdd = new FormaddClient(_connection);
             if (formAdd.ShowDialog() == DialogResult.OK)
             {
-               // MessageBox.Show("Запись добавлена!");
+                // MessageBox.Show("Запись добавлена!");
                 toolStripButton_loadClient_Click(null, null);
             }
         }
@@ -223,7 +223,7 @@ namespace DataBase_App
                 FormaddClient formEdit = new FormaddClient(_connection, clientId.Value);
                 if (formEdit.ShowDialog() == DialogResult.OK)
                 {
-                   // MessageBox.Show("Запись обновлена!");
+                    // MessageBox.Show("Запись обновлена!");
                     toolStripButton_loadClient_Click(null, null);
                 }
             }
@@ -397,7 +397,7 @@ namespace DataBase_App
                 FormAddCoach formEdit = new FormAddCoach(_connection, coachId.Value);
                 if (formEdit.ShowDialog() == DialogResult.OK)
                 {
-                   // MessageBox.Show("Запись обновлена!");
+                    // MessageBox.Show("Запись обновлена!");
                     toolStripButton_loadCoach_Click(null, null);
                 }
             }
@@ -501,7 +501,7 @@ namespace DataBase_App
             FormAddTraining formAdd = new FormAddTraining(_connection);
             if (formAdd.ShowDialog() == DialogResult.OK)
             {
-               // MessageBox.Show("Запись добавлена!");
+                // MessageBox.Show("Запись добавлена!");
                 toolStripButton_loadTraining_Click(null, null);
             }
         }
@@ -514,7 +514,7 @@ namespace DataBase_App
                 FormAddTraining formEdit = new FormAddTraining(_connection, trainingId.Value);
                 if (formEdit.ShowDialog() == DialogResult.OK)
                 {
-                   // MessageBox.Show("Запись обновлена!");
+                    // MessageBox.Show("Запись обновлена!");
                     toolStripButton_loadTraining_Click(null, null);
                 }
             }
@@ -612,7 +612,7 @@ namespace DataBase_App
             FormAddTicket formAdd = new FormAddTicket(_connection);
             if (formAdd.ShowDialog() == DialogResult.OK)
             {
-               // MessageBox.Show("Запись добавлена!");
+                // MessageBox.Show("Запись добавлена!");
                 toolStripButton_loadTicket_Click(null, null);
             }
         }
@@ -626,7 +626,7 @@ namespace DataBase_App
                 FormAddTicket formEdit = new FormAddTicket(_connection, ticketId.Value);
                 if (formEdit.ShowDialog() == DialogResult.OK)
                 {
-                   // MessageBox.Show("Запись обновлена!");
+                    // MessageBox.Show("Запись обновлена!");
                     toolStripButton_loadTicket_Click(null, null);
                 }
             }
@@ -643,6 +643,46 @@ namespace DataBase_App
                 return Convert.ToInt32(dataGridView_Ticket.SelectedRows[0].Cells["season_ticket_id"].Value);
             }
             return null;
+        }
+
+
+
+        //поиск записей клиента по фамилии
+        private void toolStripButton_search_Click(object sender, EventArgs e)
+        {
+            string last_name = toolStripTextBox_searchSignUp.Text;
+
+            if (last_name.Length > 0)
+            {
+                string query = $"SELECT s.sign_up_id, c.first_name, c.last_name, t.title, s.date_registration, s.status_st FROM public.\"SignUp\" s JOIN public.\"Client\" c ON s.client_id = c.client_id JOIN public.\"Training\" t ON s.training_id = t.training_id WHERE c.last_name = '{last_name}'";
+
+                try
+                {
+                    // Создаем объект NpgsqlDataAdapter для выполнения запроса
+                    NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(query, _connection);
+
+                    // Создаем объект DataTable для хранения данных
+                    DataTable dataTable = new DataTable();
+
+                    // Заполняем DataTable результатами запроса
+                    adapter.Fill(dataTable);
+
+                    // Привязываем DataTable к DataGridView
+                    dataGridView_signUp.DataSource = dataTable;
+                    dataGridView_signUp.Columns["sign_up_id"].Visible = false; // скрываем id 
+                }
+                catch (Exception ex)
+                {
+                    // Обработка ошибок
+                    MessageBox.Show($"Ошибка при загрузке данных: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
+            else
+            {
+                    MessageBox.Show($"Поле поиска пустое", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
     }
 }

@@ -132,6 +132,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.GradientInactiveCaption;
             ClientSize = new Size(304, 256);
             Controls.Add(textBox_countUse);
             Controls.Add(button_checkCount);
@@ -146,7 +147,7 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "FormAddSignUp";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "FormAddSignUp";
+            Text = "Запись на тренировку";
             ResumeLayout(false);
             PerformLayout();
         }

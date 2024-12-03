@@ -181,7 +181,7 @@
             button_add_edit_Client.Dock = DockStyle.Bottom;
             button_add_edit_Client.Location = new Point(0, 323);
             button_add_edit_Client.Name = "button_add_edit_Client";
-            button_add_edit_Client.Size = new Size(368, 44);
+            button_add_edit_Client.Size = new Size(360, 44);
             button_add_edit_Client.TabIndex = 16;
             button_add_edit_Client.Text = "Добавить/Изменить";
             button_add_edit_Client.UseVisualStyleBackColor = true;
@@ -191,7 +191,8 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(368, 367);
+            BackColor = SystemColors.GradientInactiveCaption;
+            ClientSize = new Size(360, 367);
             Controls.Add(button_add_edit_Client);
             Controls.Add(label8);
             Controls.Add(comboBox1);
@@ -211,7 +212,7 @@
             Controls.Add(textBox_firstName);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "FormaddClient";
-            Text = "FormaddClient";
+            Text = "Клиент";
             ResumeLayout(false);
             PerformLayout();
         }

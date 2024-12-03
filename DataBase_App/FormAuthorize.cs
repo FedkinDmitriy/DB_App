@@ -33,7 +33,7 @@ namespace DataBase_App
             try
             {
                 _connection.Open();
-                MessageBox.Show("Подключение успешно!", "Тест подключения", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Подключение успешно!", "Тест подключения", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return true;
             }
             catch (Exception ex)
