@@ -36,6 +36,10 @@
             label1 = new Label();
             label2 = new Label();
             buttonEnter = new Button();
+            textBox_host = new TextBox();
+            textBox_db = new TextBox();
+            label3 = new Label();
+            label4 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBoxLogin).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxPassword).BeginInit();
             SuspendLayout();
@@ -43,7 +47,7 @@
             // pictureBoxLogin
             // 
             pictureBoxLogin.Image = (Image)resources.GetObject("pictureBoxLogin.Image");
-            pictureBoxLogin.Location = new Point(12, 14);
+            pictureBoxLogin.Location = new Point(15, 101);
             pictureBoxLogin.Name = "pictureBoxLogin";
             pictureBoxLogin.Size = new Size(50, 50);
             pictureBoxLogin.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -53,7 +57,7 @@
             // pictureBoxPassword
             // 
             pictureBoxPassword.Image = (Image)resources.GetObject("pictureBoxPassword.Image");
-            pictureBoxPassword.Location = new Point(12, 83);
+            pictureBoxPassword.Location = new Point(15, 170);
             pictureBoxPassword.Name = "pictureBoxPassword";
             pictureBoxPassword.Size = new Size(50, 50);
             pictureBoxPassword.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -62,7 +66,7 @@
             // 
             // textBox_login
             // 
-            textBox_login.Location = new Point(80, 39);
+            textBox_login.Location = new Point(83, 126);
             textBox_login.MinimumSize = new Size(200, 25);
             textBox_login.Name = "textBox_login";
             textBox_login.Size = new Size(200, 25);
@@ -70,7 +74,7 @@
             // 
             // textBox_password
             // 
-            textBox_password.Location = new Point(80, 108);
+            textBox_password.Location = new Point(83, 195);
             textBox_password.MinimumSize = new Size(200, 25);
             textBox_password.Name = "textBox_password";
             textBox_password.Size = new Size(200, 25);
@@ -80,7 +84,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(80, 14);
+            label1.Location = new Point(83, 101);
             label1.Name = "label1";
             label1.Size = new Size(40, 17);
             label1.TabIndex = 4;
@@ -89,7 +93,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(80, 83);
+            label2.Location = new Point(83, 170);
             label2.Name = "label2";
             label2.Size = new Size(64, 17);
             label2.TabIndex = 5;
@@ -99,7 +103,7 @@
             // 
             buttonEnter.Cursor = Cursors.Hand;
             buttonEnter.Dock = DockStyle.Bottom;
-            buttonEnter.Location = new Point(0, 157);
+            buttonEnter.Location = new Point(0, 242);
             buttonEnter.Name = "buttonEnter";
             buttonEnter.Size = new Size(304, 44);
             buttonEnter.TabIndex = 6;
@@ -107,12 +111,48 @@
             buttonEnter.UseVisualStyleBackColor = true;
             buttonEnter.Click += buttonEnter_Click;
             // 
+            // textBox_host
+            // 
+            textBox_host.Location = new Point(83, 12);
+            textBox_host.Name = "textBox_host";
+            textBox_host.Size = new Size(200, 25);
+            textBox_host.TabIndex = 7;
+            // 
+            // textBox_db
+            // 
+            textBox_db.Location = new Point(83, 54);
+            textBox_db.Name = "textBox_db";
+            textBox_db.Size = new Size(200, 25);
+            textBox_db.TabIndex = 8;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(12, 20);
+            label3.Name = "label3";
+            label3.Size = new Size(35, 17);
+            label3.TabIndex = 9;
+            label3.Text = "Host";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(15, 62);
+            label4.Name = "label4";
+            label4.Size = new Size(24, 17);
+            label4.TabIndex = 10;
+            label4.Text = "DB";
+            // 
             // FormAuthorize
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.InactiveCaption;
-            ClientSize = new Size(304, 201);
+            ClientSize = new Size(304, 286);
+            Controls.Add(label4);
+            Controls.Add(label3);
+            Controls.Add(textBox_db);
+            Controls.Add(textBox_host);
             Controls.Add(buttonEnter);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -142,5 +182,9 @@
         private Label label1;
         private Label label2;
         private Button buttonEnter;
+        private TextBox textBox_host;
+        private TextBox textBox_db;
+        private Label label3;
+        private Label label4;
     }
 }

@@ -11,14 +11,18 @@ namespace DataBase_App
         public FormAuthorize()
         {
             InitializeComponent();
+            textBox_host.Text = "localhost";
+            textBox_db.Text = "FitnessCentr";
         }
 
         private void buttonEnter_Click(object sender, EventArgs e)
         {
+            string host = textBox_host.Text;
+            string db = textBox_db.Text;
             string login = textBox_login.Text;
             string password = textBox_password.Text;
 
-            _connection = new NpgsqlConnection($"Host=localhost;Database=FitnessCentr;Username={login};Password={password}");
+            _connection = new NpgsqlConnection($"Host={host};Database={db};Username={login};Password={password}");
 
             if (TestDatabaseConnection())
             {

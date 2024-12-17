@@ -500,6 +500,7 @@
             ClientSize = new Size(624, 441);
             Controls.Add(tabControlMain);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FormMain";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Fitness Centr";
